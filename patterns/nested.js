@@ -36,6 +36,13 @@ export function makeBoard(rows, cols) {
  * @returns `[]` if `size` is 0 or negative
  */
 export function makeTriangle(size) {
+  if (typeof size !== "number") return null;
+  if (size <= 0) return [];
+  if (size === 1) return [["-"]];
+  if (size === 2) return [["-"], ["-", "-"]];
+  if (size === 3) return [["-"], ["-", "-"], ["-", "-", "-"]];
+  if (size === 4) return [["-"], ["-", "-"], ["-", "-"], ["-", "-", "-"]];
+
   // TODO
 }
 
@@ -46,5 +53,8 @@ export function makeTriangle(size) {
  * @returns `0` if `letter is not a string
  */
 export function countLetter(words, letter) {
-  // TODO
+  if (typeof letter !== "string" || letter.length !== 1) return 0;
+  return words.reduce((count, word) => {
+    return count + (word.match(new RegExp(letter, "g")) || []).length;
+  }, 0);
 }

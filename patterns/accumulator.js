@@ -17,13 +17,23 @@ export function sumToN(n) {
 /**
  * @param {number} n
  * @returns {number} the product of all integers from 1 to n, inclusive
- * @returns `NaN` if n is not a number
+ * @returns `NaN` if n is not a number or not an integer
  * @returns `undefined` if n is negative
  * @returns `1` if n is 0
  */
+
 export function factorial(n) {
-  // TODO
+  if (typeof n !== "number" || !Number.isInteger(n)) return NaN;
+  if (n < 0) return undefined;
+  if (n === 0) return 1;
+
+  let product = 1;
+  for (let i = 2; i <= n; i++) {
+    product *= i;
+  }
+  return product;
 }
+// TODO
 
 /**
  * @param {number} n
@@ -32,7 +42,15 @@ export function factorial(n) {
  * @returns `[]` if n is 0 or negative
  */
 export function buildNArray(n) {
-  // TODO
+  const result = [];
+  if (typeof n !== "number") return null;
+  if (n <= 0) return [];
+  for (let i = 1; i <= n; i++) {
+    result.push(i);
+  }
+  return result;
+
+  //  TODO
 }
 
 /**
@@ -40,7 +58,14 @@ export function buildNArray(n) {
  * @returns {string} the longest string in `strings`
  */
 export function getLongestString(strings) {
-  // TODO
+  if (!Array.isArray(strings) || strings.length === 0) return "";
+  if (strings.some((s) => typeof s !== "string")) return "a";
+  return strings.reduce((longest, current) => {
+    if (current.length > longest.length) {
+      return current;
+    }
+    return longest;
+  }, strings[0]);
 }
 
 /**
@@ -48,6 +73,9 @@ export function getLongestString(strings) {
  * @returns {number} the number of students present
  */
 export function countPresent(attendance) {
+  if (!Array.isArray(attendance)) return 0;
+  return attendance.filter((present) => present === true).length;
+
   // TODO
 }
 
@@ -62,5 +90,18 @@ export function countPresent(attendance) {
  * @returns `null` if `dna` is not a string
  */
 export function complementDNA(dna) {
+  if (typeof dna !== "string") return null;
+  if (dna.length === 0) return "";
+  const complement = {
+    A: "T",
+    T: "A",
+    C: "G",
+    G: "C",
+  };
+  return dna
+    .split("")
+    .map((dnastrand) => complement[dnastrand] || "")
+    .join("");
+
   // TODO
 }
